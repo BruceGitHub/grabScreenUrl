@@ -11,6 +11,9 @@ url and outfiname will replace at runtime
 
 # convert param 
 convert origin file to flat list url
-actual converter is from tool dirsear -c dirsearch
+actual converter is from tool dirsearch -c dirsearch
+
+# todo
+implement converter from dirbuster
 
 
