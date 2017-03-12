@@ -18,14 +18,14 @@ Full example with webkit2png
 
 Full example with cutycapt
 ```{r, engine='bash', count_lines}
-/grabscreenurl.py -i sample_dirsearch.log -c dirsearch -g "cutycapt --javascript=off --insecure --url=<url> --out=<outfiname>"
+./grabscreenurl.py -i sample_dirsearch.log -c dirsearch -g "cutycapt --javascript=off --insecure --url=<url> --out=<outfiname>"
 ```
 
 # convert param 
 convert origin file to flat list url
 
 list converter 
-- dirsearch:  link: https://github.com/maurosoria/dirsearch rev Current Release: v0.3.7 (2016.08.22)
+- dirsearch:  link: https://github.com/maurosoria/dirsearch Support Release: v0.3.7 (2016.08.22)
 ```{r, engine='bash', count_lines} 
 -c dirsearch
 ```
