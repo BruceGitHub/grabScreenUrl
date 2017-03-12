@@ -1,15 +1,12 @@
 #!/usr/bin/python
 
 import sys, getopt,fileinput, os, urllib2, urllib, cStringIO,argparse
-from cv2.cv import *
-from selenium import webdriver
 
 sys.path.append('/usr/local/lib/python2.7/site-packages')
 
 lineFile = 1
 version = "0.1.0"
 numberLine = 1
-paramGrabUtility = ""
 
 
 def slugify(value):
@@ -42,14 +39,19 @@ def grab_url_from_file(paramArgs):
         if "\xe2" in line:
             line = repr(line)
         
-        # print 'Grab: %s' % line
-        # webkit2png -o test -F https://www.google.it
         outNameFile = slugify(line)
-        
-	#commandBashScreen = "webkit2png -D output --ignore-ssl-check --timeout 180 -o %s -T %s" % (outNameFile,line.rstrip())
-		
 
-	if  paramGrabUtility == "":
+
+	if  paramArgs.grabutility != "":
+		commandLine = paramArgs.grabutility.replace('<url>',line.rstrip())
+		commandLine = commandLine.replace('<outfiname>',outNameFile)
+
+		#print 'Line:', commandLine
+		os.system(commandLine)
+		#print 'Line:', numberLine,'cutycap --javascript=off --insecure --url=',line.rstrip(), '--out=',outNameFile
+
+
+	if  paramArgs.grabutility == "":
 		print 'Line:', numberLine, ' - DemoUtility -o', outNameFile, '-u',line.rstrip()
 	
 	numberLine = numberLine +1
@@ -70,8 +72,14 @@ def main():
 	print_menu()
 	parser = argparse.ArgumentParser()
 
+	helpGrabber = (
+		"Call for each line from inputfile "
+		"example:"
+		"\"webkit2png -o <outfiname> --timeout=2000 <url>\""
+	)
+
 	parser.add_argument("-i","--inputfile",action="store", help="Read line by file url from file")
-	parser.add_argument("-g","--grabutility",action="store", help="Call for each line with parameter OutFileName and Url")
+	parser.add_argument("-g","--grabutility",action="store", help=helpGrabber)																	
 	parser.add_argument("-c","--converter",action="store", help="Select source to convert file [dirsearch].")
 
 	args = parser.parse_args()
@@ -87,15 +95,18 @@ def main():
 		print 'Missing parameter -i.  You must specify inputfile'
 		sys.exit(1)
 
-	#if args.inputfile!=None and args.converter!=None:
-	#	print 'Conflict. You must specify parameter -i or -c'
-	#	sys.exit(1)
-
+	#args.grabutility = "cutycapt"
 	if args.grabutility==None:
 		paramGrabUtility= ""
 		print ' '
-		print 'Missing parameter -g. You must specify a grabber. The grabber is utility (i.e webkit2png or OpenCV) to pass parameter OutFileName and Url'
-		print 'Run demo mode!!!'
+		print 'Missing parameter -g. You must specify a grabber utility.'
+		print 'example:'
+		print '\tcutycap --javascript=off --insecure --url=<url> --out=<outfiname>'
+		print 'or'
+		print '\twebkit2png -o <outfiname> --timeout=2000 <url>'
+		print ''
+		sys.exit(1)
+
 
 	#convert input from dirsearch tool
 	if args.converter !=None and args.converter == "dirsearch":
