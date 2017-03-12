@@ -40,18 +40,20 @@ def grab_url_from_file(paramArgs):
             line = repr(line)
         
         outNameFile = slugify(line)
+	
+	#print paramArgs.grabutility 
+	#sys.exit(0)
 
-
-	if  paramArgs.grabutility != "":
+	if  paramArgs.grabutility != None:
 		commandLine = paramArgs.grabutility.replace('<url>',line.rstrip())
-		commandLine = commandLine.replace('<outfiname>',outNameFile)
+		commandLine = commandLine.replace('<outfilename>',outNameFile)
 
 		#print 'Line:', commandLine
 		os.system(commandLine)
 		#print 'Line:', numberLine,'cutycap --javascript=off --insecure --url=',line.rstrip(), '--out=',outNameFile
 
-
-	if  paramArgs.grabutility == "":
+		
+	if  paramArgs.grabutility == None:
 		print 'Line:', numberLine, ' - DemoUtility -o', outNameFile, '-u',line.rstrip()
 	
 	numberLine = numberLine +1
@@ -75,7 +77,7 @@ def main():
 	helpGrabber = (
 		"Call for each line from inputfile "
 		"example:"
-		"\"webkit2png -o <outfiname> --timeout=2000 <url>\""
+		"\"webkit2png -o <outfilename> --timeout=2000 <url>\""
 	)
 
 	parser.add_argument("-i","--inputfile",action="store", help="Read line by file url from file")
@@ -97,37 +99,33 @@ def main():
 
 	#args.grabutility = "cutycapt"
 	if args.grabutility==None:
-		paramGrabUtility= ""
 		print ' '
 		print 'Missing parameter -g. You must specify a grabber utility.'
-		print 'example:'
-		print '\tcutycap --javascript=off --insecure --url=<url> --out=<outfiname>'
+		print 'example usage:'
+		print 'cutycap --javascript=off --insecure --url=<url> --out=<outfilename>'
 		print 'or'
-		print '\twebkit2png -o <outfiname> --timeout=2000 <url>'
-		print ''
-		sys.exit(1)
+		print 'webkit2png -o <outfilename> --timeout=2000 <url>'
+		print ' '
+		print 'Run demo mode'
 
 
 	#convert input from dirsearch tool
 	if args.converter !=None and args.converter == "dirsearch":
 		print 'Run Convert type DirSearch'	
-		f = open(args.inputfile,'rs')
-
-		#use same variable
- 		args.inputfile = 'dir_search_list.txt'	
-		target = open(args.inputfile,'w')
-
-		for line in iter(f):
-			#print line	
-			if "\xe2" in line:
-           			line = repr(line)
-			splitLine = line.split(" ")
-			if splitLine[0]=='200':
-				target.write(splitLine[6])
-		target.write('\n') 
-				
-		f.close()   				
-		target.close()
+		with open(args.inputfile,'rs') as f:
+			#use same variable
+			args.inputfile = 'dir_search_list.txt'	
+			with open(args.inputfile,'w') as target:
+				for line in iter(f):
+					#print line	
+					if "\xe2" in line:
+							line = repr(line)
+					splitLine = line.split(" ")
+					if splitLine[0]=='200':
+						target.write(splitLine[6])
+				target.write('\n') 
+					
+		print 'Done Convert file output to:',args.inputfile	 				
 	#end converter dirsearch
 	
 
