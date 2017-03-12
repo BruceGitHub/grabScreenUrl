@@ -102,7 +102,7 @@ def main():
 		print ' '
 		print 'Missing parameter -g. You must specify a grabber utility.'
 		print 'example usage:'
-		print 'cutycap --javascript=off --insecure --url=<url> --out=<outfilename>'
+		print 'cutycapt --javascript=off --insecure --url=<url> --out=<outfilename>'
 		print 'or'
 		print 'webkit2png -o <outfilename> --timeout=2000 <url>'
 		print ' '
