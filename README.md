@@ -7,7 +7,7 @@ grab image screen from list url
     - https://google.it
 
 ```{r, engine='bash', count_lines}
-./grabscreeenurl.py -i list.txt -g cutycap --javascript=off --insecure --url=<url> --out=<outfiname>
+./grabscreeenurl.py -i list.txt -g cutycap "--javascript=off --insecure --url=<url> --out=<outfiname>"
 ```
 url and outfiname will replace at runtime
 
