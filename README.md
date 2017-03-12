@@ -25,7 +25,10 @@ Full example with cutycapt
 convert origin file to flat list url
 
 list converter 
-- dirsearch -c dirsearch link: https://github.com/maurosoria/dirsearch rev Current Release: v0.3.7 (2016.08.22)
+- dirsearch
+```{r, engine='bash', count_lines} 
+-c dirsearch link: https://github.com/maurosoria/dirsearch rev Current Release: v0.3.7 (2016.08.22)
+```
 
 # todo
 implement converter from dirbuster
